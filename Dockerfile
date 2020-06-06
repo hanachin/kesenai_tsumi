@@ -2,7 +2,8 @@ FROM rubylang/ruby:2.7.1-bionic
 
 RUN apt-get update -qq && \
   apt-get install -y curl gnupg && \
-  bash -c 'apt-key add <(curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg)' && \
+  bash -c 'curl -fsSL https://deb.nodesource.com/setup_14.x | bash -' && \
+  bash -c 'curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -' && \
   echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
   apt-get update -qq && \
   apt-get install -y nodejs postgresql-client build-essential libpq-dev yarn && \
