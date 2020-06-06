@@ -7,6 +7,8 @@ services:
       - db
     environment:
       DATABASE_URL: postgres://postgres:hi@db:5432
+    ports:
+      - "3000:3000"
     volumes:
       - .:/app
       - ./home:/home/app

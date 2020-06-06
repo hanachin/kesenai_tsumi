@@ -19,4 +19,5 @@ USER app
 
 WORKDIR /app
 ENV PATH /app/bin:$PATH
-CMD ["rails", "server", "--binding", "0.0.0.0"]
+EXPOSE 3000
+CMD ["rails", "server", "--binding", "0.0.0.0", "--port", "3000"]
