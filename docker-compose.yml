@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:hi@db:5432
+    volumes:
+      - .:/app
+      - ./home:/home/app
+      - bundle:/app/.bundle
+  db:
+    image: postgres:12.3-alpine
+    environment:
+      POSTGRES_PASSWORD: hi
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
+  bundle:
