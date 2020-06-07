@@ -1,10 +1,10 @@
 <p>
   <%= post.poster %>:<%= post.display_body %>
   <% if post.cancelled? %>
-    <%= link_to 'Uncancel', uncancel_board_post_path(post.board, post), remote: true, method: :post, data: { confirm: 'Are you sure?' } %>
+    <%= link_to 'Uncancel', board_post_cancellation_path(post.board, post), remote: true, method: :delete, data: { confirm: 'Are you sure?' } %>
   <% else %>
     <%= link_to 'Destroy', [post.board, post], method: :delete, data: { confirm: 'Are you sure?' } %>
     <%= link_to 'Update the body', [post.board, post], remote: true, method: :patch, data: { confirm: 'Are you sure?', params: { post: { body: 'The body is deleted.' } }.to_param } %>
-    <%= link_to 'Cancel', cancel_board_post_path(post.board, post), remote: true, method: :post, data: { confirm: 'Are you sure?' } %>
+    <%= link_to 'Cancel', board_post_cancellation_path(post.board, post), remote: true, method: :post, data: { confirm: 'Are you sure?' } %>
   <% end %>
 </p>

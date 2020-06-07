@@ -1,23 +1,14 @@
 class Post < ApplicationRecord
   belongs_to :board
+  has_one :cancellation, class_name: 'PostCancellation', dependent: :destroy
 
   validates :poster, :body, presence: true
 
-  def cancel(at: Time.zone.now)
-    self.cancelled_at = at
-    save
-  end
-
   def cancelled?
-    !cancelled_at.nil?
+    !cancellation.nil?
   end
 
   def display_body
-    cancelled_at.nil? ? body : 'This post is deleted.'
-  end
-
-  def uncancel
-    self.cancelled_at = nil
-    save
+    cancelled? ? body : 'This post is deleted.'
   end
 end

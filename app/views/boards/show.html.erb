@@ -4,7 +4,7 @@
   <strong>Title:</strong>
   <%= @board.title %>
 </p>
-<%= render @board.posts.order(:created_at) %>
+<%= render @board.posts.preload(:cancellation).order(:created_at) %>
 <%= render 'posts/form', board: @board, post: @new_post %>
 <%= link_to 'Edit', edit_board_path(@board) %> |
 <%= link_to 'Back', boards_path %>
