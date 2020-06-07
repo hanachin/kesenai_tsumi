@@ -7,6 +7,7 @@ services:
       - db
     environment:
       DATABASE_URL: postgres://postgres:hi@db:5432
+      RAILS_ENV: development
       WEBPACKER_DEV_SERVER_HOST: webpacker
     ports:
       - "3000:3000"
