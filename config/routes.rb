@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  get 'posts/create'
-  resources :boards
+  root to: 'boards#index'
+  resources :boards do
+    resources :posts, only: :create
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
