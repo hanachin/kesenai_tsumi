@@ -1,5 +1,8 @@
 <p>
-  <%= post.poster %>:<%= post.body %>
-  <%= link_to 'Destroy', [post.board, post], method: :delete, data: { confirm: 'Are you sure?' } %>
-  <%= link_to 'Update the body', [post.board, post], remote: true, method: :patch, data: { confirm: 'Are you sure?', params: { post: { body: 'The body is deleted.' } }.to_param } %>
+  <%= post.poster %>:<%= post.display_body %>
+  <% unless post.cancelled? %>
+    <%= link_to 'Destroy', [post.board, post], method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to 'Update the body', [post.board, post], remote: true, method: :patch, data: { confirm: 'Are you sure?', params: { post: { body: 'The body is deleted.' } }.to_param } %>
+    <%= link_to 'Cancel', cancel_board_post_path(post.board, post), remote: true, method: :post, data: { confirm: 'Are you sure?' } %>
+  <% end %>
 </p>

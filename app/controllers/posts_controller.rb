@@ -1,6 +1,20 @@
 class PostsController < ApplicationController
   before_action :set_board
-  before_action :set_post, only: %I[destroy update]
+  before_action :set_post, only: %I[destroy update cancel]
+
+  # POST /boards/:board_id/posts/1/cancel
+  # POST /boards/:board_id/posts/1/cancel.json
+  def cancel
+    respond_to do |format|
+      if @post.cancel
+        format.html { redirect_to @board, notice: 'Post was successfully cancelled.' }
+        format.json { render :show, status: :ok, location: @post }
+      else
+        format.html { render :edit }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # POST /boards/:board_id/posts
   # POST /boards/:board_id/posts.json
