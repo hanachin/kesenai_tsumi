@@ -1,3 +1,4 @@
 <p>
   <%= post.poster %>:<%= post.body %>
+  <%= link_to 'Destroy', [post.board, post], method: :delete, data: { confirm: 'Are you sure?' } %>
 </p>
