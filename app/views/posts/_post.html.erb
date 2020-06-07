@@ -1,4 +1,5 @@
 <p>
   <%= post.poster %>:<%= post.body %>
   <%= link_to 'Destroy', [post.board, post], method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Update the body', [post.board, post], remote: true, method: :patch, data: { confirm: 'Are you sure?', params: { post: { body: 'The body is deleted.' } }.to_param } %>
 </p>

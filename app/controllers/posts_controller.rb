@@ -1,11 +1,11 @@
 class PostsController < ApplicationController
   before_action :set_board
-  before_action :set_post, only: :destroy
+  before_action :set_post, only: %I[destroy update]
 
   # POST /boards/:board_id/posts
   # POST /boards/:board_id/posts.json
   def create
-    @new_post = @board.posts.new(post_params)
+    @new_post = @board.posts.new(new_post_params)
 
     respond_to do |format|
       if @new_post.save
@@ -28,9 +28,23 @@ class PostsController < ApplicationController
     end
   end
 
+  # PATCH/PUT /boards/:board_id/posts/1
+  # PATCH/PUT /boards/:board_id/posts/1.json
+  def update
+    respond_to do |format|
+      if @post.update(update_post_params)
+        format.html { redirect_to @board, notice: 'Post was successfully updated.' }
+        format.json { render :show, status: :ok, location: @post }
+      else
+        format.html { render :edit }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
 
-    def post_params
+    def new_post_params
       params.require(:post).permit(:poster, :body)
     end
 
@@ -40,5 +54,9 @@ class PostsController < ApplicationController
 
     def set_post
       @post = @board.posts.find(params[:id])
+    end
+
+    def update_post_params
+      params.require(:post).permit(:body)
     end
 end
