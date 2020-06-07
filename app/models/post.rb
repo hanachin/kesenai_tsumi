@@ -15,4 +15,9 @@ class Post < ApplicationRecord
   def display_body
     cancelled_at.nil? ? body : 'This post is deleted.'
   end
+
+  def uncancel
+    self.cancelled_at = nil
+    save
+  end
 end

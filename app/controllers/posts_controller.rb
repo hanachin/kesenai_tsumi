@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_board
-  before_action :set_post, only: %I[destroy update cancel]
+  before_action :set_post, only: %I[destroy update cancel uncancel]
 
   # POST /boards/:board_id/posts/1/cancel
   # POST /boards/:board_id/posts/1/cancel.json
@@ -39,6 +39,20 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @board, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  # POST /boards/:board_id/posts/1/uncancel
+  # POST /boards/:board_id/posts/1/uncancel.json
+  def uncancel
+    respond_to do |format|
+      if @post.uncancel
+        format.html { redirect_to @board, notice: 'Post was successfully uncancelled.' }
+        format.json { render :show, status: :ok, location: @post }
+      else
+        format.html { render :edit }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
     end
   end
 
