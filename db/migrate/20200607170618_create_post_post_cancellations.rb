@@ -6,5 +6,6 @@ class CreatePostPostCancellations < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+    add_index :post_post_cancellations, %I[post_id post_cancellation_id], name: 'index_post_post_cancellation_unique'
   end
 end
