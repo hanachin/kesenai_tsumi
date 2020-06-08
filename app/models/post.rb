@@ -1,6 +1,8 @@
 class Post < ApplicationRecord
   belongs_to :board
-  has_one :cancellation, class_name: 'PostCancellation', dependent: :destroy
+  has_one :post_post_cancellation, dependent: :destroy
+  has_one :cancellation, class_name: 'PostCancellation', through: :post_post_cancellation, source: :post_cancellation
+  has_many :post_cancellations, dependent: :destroy
 
   validates :poster, :body, presence: true
 

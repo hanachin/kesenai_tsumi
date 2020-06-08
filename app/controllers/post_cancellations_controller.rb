@@ -6,7 +6,7 @@ class PostCancellationsController < ApplicationController
   # POST /boards/:board_id/posts.json
   def create
     respond_to do |format|
-      if @post.create_cancellation
+      if @post.create_post_post_cancellation(post_cancellation: @post.post_cancellations.build)
         format.html { redirect_to @board, notice: 'PostCancellation was successfully created.' }
         format.json { render :show, status: :created, location: @board }
       else
@@ -19,7 +19,7 @@ class PostCancellationsController < ApplicationController
   # DELETE /boards/:board_id/posts/1/cancellation
   # DELETE /boards/:board_id/posts/1/cancellation.json
   def destroy
-    @post.cancellation.destroy
+    @post.post_post_cancellation.destroy
     respond_to do |format|
       format.html { redirect_to @board, notice: 'PostCancellation was successfully destroyed.' }
       format.json { head :no_content }
