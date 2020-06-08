@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_07_170618) do
+ActiveRecord::Schema.define(version: 2020_06_08_173626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,21 +21,18 @@ ActiveRecord::Schema.define(version: 2020_06_07_170618) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "post_cancellation_invalidations", force: :cascade do |t|
+    t.bigint "post_cancellation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_cancellation_id"], name: "index_post_cancellation_invalidations_on_post_cancellation_id"
+  end
+
   create_table "post_cancellations", force: :cascade do |t|
     t.bigint "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_post_cancellations_on_post_id"
-  end
-
-  create_table "post_post_cancellations", force: :cascade do |t|
-    t.bigint "post_id", null: false
-    t.bigint "post_cancellation_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["post_cancellation_id"], name: "index_post_post_cancellations_on_post_cancellation_id"
-    t.index ["post_id", "post_cancellation_id"], name: "index_post_post_cancellation_unique"
-    t.index ["post_id"], name: "index_post_post_cancellations_on_post_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -47,8 +44,7 @@ ActiveRecord::Schema.define(version: 2020_06_07_170618) do
     t.index ["board_id"], name: "index_posts_on_board_id"
   end
 
+  add_foreign_key "post_cancellation_invalidations", "post_cancellations"
   add_foreign_key "post_cancellations", "posts"
-  add_foreign_key "post_post_cancellations", "post_cancellations"
-  add_foreign_key "post_post_cancellations", "posts"
   add_foreign_key "posts", "boards"
 end

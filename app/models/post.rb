@@ -1,7 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :board
-  has_one :post_post_cancellation, dependent: :destroy
-  has_one :cancellation, class_name: 'PostCancellation', through: :post_post_cancellation, source: :post_cancellation
+  has_one :cancellation, -> { where.missing(:invalidation) }, class_name: 'PostCancellation'
   has_many :post_cancellations, dependent: :destroy
 
   validates :poster, :body, presence: true
@@ -11,6 +10,6 @@ class Post < ApplicationRecord
   end
 
   def display_body
-    cancelled? ? body : 'This post is deleted.'
+    cancelled? ? 'This post is deleted.' : body
   end
 end

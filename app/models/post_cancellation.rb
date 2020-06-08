@@ -1,4 +1,4 @@
 class PostCancellation < ApplicationRecord
   belongs_to :post
-  has_one :post_post_cancellation, dependent: :destroy
+  has_one :invalidation, class_name: 'PostCancellationInvalidation'
 end
