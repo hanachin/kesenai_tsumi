@@ -6,7 +6,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://postgres:hi@db:5432
+      DATABASE_URL: postgres://rails_app:kesenai@db:5432
       RAILS_ENV: development
       WEBPACKER_DEV_SERVER_HOST: webpacker
     ports:
@@ -16,6 +16,10 @@ services:
       - ./home:/home/app
       - bundle:/app/.bundle
       - node_modules:/app/node_modules
+  migration:
+    <<: *rails
+    environment:
+      DATABASE_URL: postgres://postgres:hi@db:5432
   webpacker:
     <<: *rails
     command: webpack-dev-server
